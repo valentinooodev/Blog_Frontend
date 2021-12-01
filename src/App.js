@@ -1,22 +1,22 @@
-import React, {useEffect, useState} from "react";
-import './App.css'
-import Posts from './components/posts'
-import PostLoadingComponent from './components/postLoading'
+import React, { useEffect, useState } from 'react';
+import './App.css';
+import Posts from './components/posts';
+import PostLoadingComponent from './components/postLoading';
+import axiosInstance from './axios';
 
-function App(){
+function App() {
     const PostLoading = PostLoadingComponent(Posts);
-    const[appState, setAppState] = useState({
-        loading: false,
-        posts: null
+    const [appState, setAppState] = useState({
+        loading: true,
+        posts: null,
     });
+
     useEffect(() => {
-        setAppState({loading: true});
-        const apiUrl = `http://127.0.0.1:8000/api/v1/`;
-        fetch(apiUrl)
-            .then((data) => data.json())
-            .then((posts) => {
-                setAppState({loading: false, posts: posts});
-            });
+        axiosInstance.get().then((res) => {
+            const allPosts = res.data;
+            setAppState({ loading: false, posts: allPosts });
+            console.log(res.data);
+        });
     }, [setAppState]);
     return (
         <div className="App">
@@ -25,5 +25,4 @@ function App(){
         </div>
     );
 }
-
 export default App;
