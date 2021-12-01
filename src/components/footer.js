@@ -1,6 +1,6 @@
 import React from 'react';
 import Container from '@material-ui/core/Container';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
@@ -23,7 +23,7 @@ function Copyright() {
     return (
         <Typography variant="body2" color="textSecondary" align="center">
             {'Copyright © '}
-            <Link color="inherit" href="https://material-ui.com/">
+            <Link color="inherit" href="https://github.com/valentinooodev/Blog_Frontend">
                 Valentino
             </Link>{' '}
             {new Date().getFullYear()}
@@ -86,7 +86,7 @@ function Footer() {
                     ))}
                 </Grid>
                 <Box mt={5}>
-                    <Copyright />
+                    <Copyright/>
                 </Box>
             </Container>
         </React.Fragment>
