@@ -6,11 +6,16 @@ import reportWebVitals from './reportWebVitals';
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import Header from './components/header'
 import Footer from './components/footer'
-import Register from './components/register'
-import Login from "./components/login";
-import Logout from "./components/logout"
-import Single from './components/single';
-import Search from './components/search';
+import Register from './components/auth/register'
+import Login from "./components/auth/login";
+import Logout from "./components/auth/logout"
+import Single from './components/posts/single';
+import Search from './components/posts/search';
+import Admin from './Admin'
+import Create from './components/admin/create'
+import Edit from './components/admin/edit'
+import Delete from './components/admin/delete'
+
 
 
 const routing = (
@@ -19,6 +24,10 @@ const routing = (
             <Header/>
             <Routes>
                 <Route exact path="/" element={<App/>}/>
+                <Route path="/admin" element={<Admin/>}/>
+                <Route path="/admin/create" element={<Create/>}/>
+                <Route path="/admin/edit/:id" element={<Edit/>}/>
+                <Route path="/admin/delete/:id" element={<Delete/>}/>
                 <Route path="/register" element={<Register/>}/>
                 <Route path="/login" element={<Login/>}/>
                 <Route path="/logout" element={<Logout/>}/>
