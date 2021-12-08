@@ -42,6 +42,7 @@ const Posts = (props) => {
     return (
         <React.Fragment>
             <Container maxWidth="md" component="main">
+                <h1>Latest Posts</h1>
                 <Grid container spacing={5} alignItems="flex-end">
                     {posts.map((post) => {
                         return (
@@ -55,7 +56,7 @@ const Posts = (props) => {
                                     >
                                         <CardMedia
                                             className={classes.cardMedia}
-                                            image="https://source.unsplash.com/random"
+                                            image={post.image}
                                             title="Image title"
                                         />
                                     </Link>
@@ -70,7 +71,7 @@ const Posts = (props) => {
                                         </Typography>
                                         <div className={classes.postText}>
                                             <Typography color="textSecondary">
-                                                {post.description.substr(0, 40)}...
+                                                {post.description.substr(0, 50)}...
                                             </Typography>
                                         </div>
                                     </CardContent>

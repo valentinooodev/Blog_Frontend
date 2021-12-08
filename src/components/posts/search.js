@@ -3,7 +3,6 @@ import axiosInstance from "../../axios";
 
 import {makeStyles} from "@material-ui/core/styles";
 import {Card, CardContent, CardMedia, Grid, Typography, Container, Link} from "@material-ui/core";
-import {useLocation} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     cardMedia: {

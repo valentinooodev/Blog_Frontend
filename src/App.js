@@ -12,7 +12,7 @@ function App() {
     });
 
     useEffect(() => {
-        axiosInstance.get().then((res) => {
+        axiosInstance.get('/search/').then((res) => {
             const allPosts = res.data;
             setAppState({ loading: false, posts: allPosts });
             console.log(res.data);
@@ -20,7 +20,7 @@ function App() {
     }, [setAppState]);
     return (
         <div className="App">
-            <h1>Latest Posts</h1>
+
             <PostLoading isLoading={appState.loading} posts={appState.posts} />
         </div>
     );
