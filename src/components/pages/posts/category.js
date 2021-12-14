@@ -3,6 +3,7 @@ import axiosInstance from "../../services/axios/axios";
 
 import {makeStyles} from "@material-ui/core/styles";
 import {Card, CardContent, CardMedia, Grid, Typography, Container, Link} from "@material-ui/core";
+import {useParams} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     cardMedia: {
@@ -33,15 +34,14 @@ const useStyles = makeStyles((theme) => ({
 
 const Search = () => {
     const classes = useStyles();
-    const search = 'search';
+    const {slug} = useParams();
     const [appState, setAppState] = useState({
-        search: '',
         posts: [],
     });
 
     useEffect(() => {
-        axiosInstance.get(search + '/' + window.location.search).then((res) => {
-            const allPosts = res.data.data;
+        axiosInstance.get( 'category/' + slug).then((res) => {
+            const allPosts = res.data;
             setAppState({posts: allPosts});
             console.log(res.data);
         });
@@ -63,8 +63,8 @@ const Search = () => {
                                     >
                                         <CardMedia
                                             className={classes.cardMedia}
-                                            image="https://source.unsplash.com/random"
-                                            title="Image title"
+                                            image={post.image}
+                                            title={post.title}
                                         />
                                     </Link>
                                     <CardContent className={classes.cardContent}>

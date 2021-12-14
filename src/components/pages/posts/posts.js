@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -8,7 +8,10 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
 import {Badge} from "@material-ui/core";
+import { Pagination } from '@mui/material';
 import { GoThumbsup, GoEye, GoComment } from "react-icons/go";
+import axios from "../../services/axios/axios";
+import axiosInstance from "../../services/axios/axios";
 
 const useStyles = makeStyles((theme) => ({
     cardMedia: {
@@ -47,12 +50,30 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: 25,
         marginRight: 25,
 
+    },
+    // paginationContainer: {
+    //     position: 'relative'
+    // },
+    pagination: {
+        justifyContent: 'center',
+        marginTop: 20,
     }
 }));
 
 const Posts = (props) => {
-    const { posts } = props;
+    const firstPost = props.posts;
+    const pages = props.pages;
     const classes = useStyles();
+    const [posts, setPosts] = useState(firstPost);
+    console.log(posts);
+    const [page, setPage] = useState(1)
+    const handlePageChange = (e, p) => {
+        // setPage(p);
+        console.log('here', e);
+        // axiosInstance.get('/?page=' + p).then((res) => {
+        //     setPosts({posts: res.data});
+        // });
+    };
     if (!posts || posts.length === 0) return <p>Can not find any posts, sorry</p>;
     return (
         <React.Fragment>
@@ -109,6 +130,13 @@ const Posts = (props) => {
                         );
                     })}
                 </Grid>
+
+
+            </Container>
+            <Container>
+                <div className={classes.pagination}>
+                <Pagination className={classes.pagination} count={pages} onChange={handlePageChange()} color="primary" />
+                </div>
             </Container>
         </React.Fragment>
     );

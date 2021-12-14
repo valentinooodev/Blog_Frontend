@@ -15,6 +15,7 @@ import Admin from './Admin'
 import Create from './components/pages/admin/create'
 import Edit from './components/pages/admin/edit'
 import Delete from './components/pages/admin/delete'
+import Category from './components/pages/posts/category'
 
 
 
@@ -32,6 +33,7 @@ const routing = (
                 <Route path="/login" element={<Login/>}/>
                 <Route path="/logout" element={<Logout/>}/>
                 <Route path="/post/:slug" element={<Single/>} />
+                <Route path="/category/:slug" element={<Category/>} />
                 <Route path="/search" element={<Search/>} />
             </Routes>
             <Footer/>

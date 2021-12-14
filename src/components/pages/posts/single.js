@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import axiosInstance from '../../services/axios/axios';
+import {useNavigate} from "react-router-dom";
 import {useParams} from 'react-router-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import {makeStyles} from '@material-ui/core/styles';
@@ -8,6 +9,9 @@ import Typography from '@material-ui/core/Typography';
 import ReactMarkdown from 'react-markdown'
 import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter'
 import CardContent from "@material-ui/core/CardContent";
+import TextField from "@material-ui/core/TextField";
+import Grid from "@material-ui/core/Grid";
+import {Button} from "@material-ui/core";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -17,6 +21,9 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'column',
         alignItems: 'center',
     },
+    comment: {
+        alignItems: "center"
+    },
 }));
 
 export default function Post() {
@@ -25,6 +32,7 @@ export default function Post() {
 
     const [post, setPost] = useState({posts: []});
     const [comments, setComments] = useState({comments: []});
+    const [commentData, updateCommentData] = useState()
 
     useEffect(() => {
         axiosInstance.get('/post/' + slug).then((res) => {
@@ -34,6 +42,27 @@ export default function Post() {
             setComments({comments: res.data});
         });
     }, [setPost, setComments]);
+    const navigate = useNavigate();
+    const handleChange = (e) => {
+        updateCommentData(e.target.value.trim());
+    };
+    console.log('cmt', comments);
+    const handleCommentSubmit = (e) => {
+        e.preventDefault();
+        console.log({
+            post: post.posts.id,
+            content: commentData,
+        });
+
+        axiosInstance.post(`action/comment/create/`, {
+            post: post.posts.id,
+            content: commentData,
+        });
+        const newComment = comments.comments.push(commentData);
+        axiosInstance.get('/action/comment/list/' + slug).then((res) => {
+            setComments({comments: res.data});
+        });
+    };
 
 
     return (
@@ -79,7 +108,23 @@ export default function Post() {
                             }
                         }}
                     />
-
+                    <Container>
+                        <div className={classes.comment}>
+                            <Grid item xs={12}>
+                                <TextField
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    id="description"
+                                    label="Comment"
+                                    onChange={handleChange}
+                                    multiline
+                                    rows={8}
+                                />
+                                <Button variant="contained" onClick={handleCommentSubmit}>Comment</Button>
+                            </Grid>
+                        </div>
+                    </Container>
                 </Container>
                 {comments.comments.map((comment) => {
                     return (

@@ -44,7 +44,7 @@ export default function Create() {
             updateFormData({
                 ...formData,
                 ['title']: res.data.title,
-                ['excerpt']: res.data.excerpt,
+                ['description']: res.data.description,
                 ['slug']: res.data.slug,
                 ['content']: res.data.content,
             });
@@ -68,7 +68,7 @@ export default function Create() {
             title: formData.title,
             slug: formData.slug,
             author: 1,
-            excerpt: formData.description,
+            description: formData.description,
             content: formData.content,
         });
         navigate('/admin/', {replace: true})

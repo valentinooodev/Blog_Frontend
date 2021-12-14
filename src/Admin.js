@@ -13,7 +13,7 @@ function Admin() {
 
     useEffect(() => {
         axiosInstance.get().then((res) => {
-            const allPosts = res.data;
+            const allPosts = res.data.data;
             setAppState({ loading: false, posts: allPosts });
             console.log(res.data);
         });
