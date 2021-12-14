@@ -7,6 +7,8 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
+import {Badge} from "@material-ui/core";
+import { GoThumbsup, GoEye, GoComment } from "react-icons/go";
 
 const useStyles = makeStyles((theme) => ({
     cardMedia: {
@@ -33,6 +35,19 @@ const useStyles = makeStyles((theme) => ({
         textAlign: 'left',
         marginBottom: theme.spacing(2),
     },
+    actionDetail:{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'baseline',
+        fontSize: '12px',
+        textAlign: 'left',
+    },
+    badge: {
+        justifyContent: 'center',
+        marginLeft: 25,
+        marginRight: 25,
+
+    }
 }));
 
 const Posts = (props) => {
@@ -48,7 +63,7 @@ const Posts = (props) => {
                         return (
                             // Enterprise card is full width at sm breakpoint
                             <Grid item key={post.id} xs={12} md={4}>
-                                <Card className={classes.card}>
+                                <Card className={classes.card} href={'post/' + post.slug}>
                                     <Link
                                         color="textPrimary"
                                         href={'post/' + post.slug}
@@ -57,9 +72,22 @@ const Posts = (props) => {
                                         <CardMedia
                                             className={classes.cardMedia}
                                             image={post.image}
-                                            title="Image title"
+                                            title={post.title}
                                         />
                                     </Link>
+                                    <div className={classes.actionDetail}>
+                                        <Typography color="textSecondary">
+                                            <Badge className={classes.badge} badgeContent={post.upvote_count} color="secondary">
+                                                <GoThumbsup color="action" size={23} />
+                                            </Badge>
+                                            <Badge className={classes.badge} badgeContent={post.view_count} color="secondary">
+                                                <GoEye color="action" size={23} />
+                                            </Badge>
+                                            <Badge className={classes.badge} badgeContent={post.comment_count} color="secondary">
+                                                <GoComment color="action" size={23} />
+                                            </Badge>
+                                        </Typography>
+                                    </div>
                                     <CardContent className={classes.cardContent}>
                                         <Typography
                                             gutterBottom
@@ -74,6 +102,7 @@ const Posts = (props) => {
                                                 {post.description.substr(0, 50)}...
                                             </Typography>
                                         </div>
+
                                     </CardContent>
                                 </Card>
                             </Grid>

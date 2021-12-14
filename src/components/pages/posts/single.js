@@ -1,15 +1,13 @@
 import React, {useState, useEffect} from 'react';
-import axiosInstance from '../../axios';
+import axiosInstance from '../../services/axios/axios';
 import {useParams} from 'react-router-dom';
-//MaterialUI
 import CssBaseline from '@material-ui/core/CssBaseline';
 import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import ReactMarkdown from 'react-markdown'
-import remarkGfm from 'remark-gfm'
 import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter'
-import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import CardContent from "@material-ui/core/CardContent";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -25,14 +23,18 @@ export default function Post() {
     const {slug} = useParams();
     const classes = useStyles();
 
-    const [data, setData] = useState({posts: []});
+    const [post, setPost] = useState({posts: []});
+    const [comments, setComments] = useState({comments: []});
 
     useEffect(() => {
         axiosInstance.get('/post/' + slug).then((res) => {
-            setData({posts: res.data});
-            console.log(res.data);
+            setPost({posts: res.data});
         });
-    }, [setData]);
+        axiosInstance.get('/action/comment/list/' + slug).then((res) => {
+            setComments({comments: res.data});
+        });
+    }, [setPost, setComments]);
+
 
     return (
         <Container component="main" maxWidth="md">
@@ -47,7 +49,7 @@ export default function Post() {
                         color="textPrimary"
                         gutterBottom
                     >
-                        {data.posts.title}
+                        {post.posts.title}
                     </Typography>
                     <Typography
                         variant="i"
@@ -55,25 +57,16 @@ export default function Post() {
                         color="textSecondary"
                         paragraph
                     >
-                        {data.posts.description}
+                        {post.posts.description}
                     </Typography>
-                    {/*<Typography*/}
-                    {/*    variant="h7"*/}
-                    {/*    align="left"*/}
-                    {/*    color="textSecondary"*/}
-                    {/*    paragraph*/}
-                    {/*>*/}
-                    {/*    {data.posts.content}*/}
-                    {/*</Typography>*/}
                     <ReactMarkdown
-                        children={data.posts.content}
+                        children={post.posts.content}
                         components={{
                             code({node, inline, className, children, ...props}) {
                                 const match = /language-(\w+)/.exec(className || '')
                                 return !inline && match ? (
                                     <SyntaxHighlighter
                                         children={String(children).replace(/\n$/, '')}
-                                        // style={docco}
                                         language={match[1]}
                                         PreTag="div"
                                         {...props}
@@ -85,10 +78,29 @@ export default function Post() {
                                 )
                             }
                         }}
-                    />,
-                    document.body
+                    />
 
                 </Container>
+                {comments.comments.map((comment) => {
+                    return (
+                        <CardContent className={classes.cardContent}>
+                            <Typography
+                                gutterBottom
+                                variant="h6"
+                                component="h2"
+                                className={classes.postTitle}
+                            >
+                                {comment.user_name}:
+                            </Typography>
+                            <div className={classes.postText}>
+                                <Typography color="textSecondary">
+                                    {comment.content}
+                                </Typography>
+                            </div>
+
+                        </CardContent>
+                    );
+                })}
             </div>
         </Container>
     );

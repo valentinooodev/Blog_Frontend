@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import axiosInstance from '../../axios';
+import axiosInstance from '../../services/axios/axios';
 import {useNavigate} from 'react-router-dom';
 //MaterialUI
 import Avatar from '@material-ui/core/Avatar';
@@ -87,21 +87,6 @@ export default function Create() {
         window.location.reload();
     };
 
-    // const config = { headers: { 'Content-Type': 'multipart/form-data' } };
-    // const URL = 'http://127.0.0.1:8000/api/admin/creats/';
-    // let formData = new FormData();
-    // formData.append('title', postData.title);
-    // formData.append('slug', postData.slug);
-    // formData.append('author', 1);
-    // formData.append('description', postData.description);
-    // formData.append('content', postData.content);
-    // formData.append('image', postimage.image[0]);
-    // axios
-    // 	.post(URL, formData, config)
-    // 	.then((res) => {
-    // 		console.log(res.data);
-    // 	})
-    // 	.catch((err) => console.log(err));
 
     const classes = useStyles();
 

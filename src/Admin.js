@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import Posts from './components/admin/posts';
-import PostLoadingComponent from './components/posts/postLoading';
-import axiosInstance from './axios';
+import Posts from './components/pages/admin/posts';
+import PostLoadingComponent from './components/pages/posts/postLoading';
+import axiosInstance from './components/services/axios/axios';
 
 function Admin() {
     const PostLoading = PostLoadingComponent(Posts);

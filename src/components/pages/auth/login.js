@@ -1,8 +1,6 @@
 import React, {useState} from "react";
-import axiosInstance from "../../axios/login";
+import axiosInstance from "../../services/axios/login";
 import {useNavigate} from 'react-router-dom'
-import FbLogin from 'react-facebook-login'
-import FacebookLogin from '../../axios/facebookLogin'
 
 import {
     Avatar, Button, CssBaseline, TextField, FormControlLabel, Checkbox, Link, Grid, Typography, makeStyles, Container
@@ -40,24 +38,18 @@ export default function Login() {
         console.log(formData);
 
         axiosInstance
-            .post(`auth/token/`, {
-                username: formData.email,
+            .post(`token/`, {
+                email: formData.email,
                 password: formData.password,
-                grant_type: 'password',
-                client_id: 'tNTSIUWa0wIlRNQxhtkiJfjmewfMypGz5CRqhVEj',
-                client_secret: "5swFIkdjaoEJT20MHtveRDoqqn684glYVeyrqp3IkF2Dg5yEQk2RI1SitXCeZXAjdJ5gHkqmlzCi6aDa7Lu3xO0et9q6kSHVBBeIvSSn2lzZZ6JcBUNsQcMUQK5beaGy"
             })
             .then((res) => {
                 console.log(res);
-                localStorage.setItem('access_token', res.data.access_token);
-                localStorage.setItem('refresh_token', res.data.refresh_token);
+                localStorage.setItem('access_token', res.data.access);
+                localStorage.setItem('refresh_token', res.data.refresh);
                 navigate('/', {replace: true});
             });
     };
 
-    const responseFacebook = (response) => {
-        FacebookLogin(response.accessToken);
-    };
 
     const classes = useStyles();
 
@@ -107,11 +99,6 @@ export default function Login() {
                 >
                     Sign In
                 </Button>
-                <FbLogin
-                    appId = "447695540206503"
-                    fields="name,email,picture"
-                    callback={responseFacebook}
-                />
                 <Grid container>
                     <Grid item xs>
                         <Link href="#" variant="body2">
@@ -119,7 +106,7 @@ export default function Login() {
                         </Link>
                     </Grid>
                     <Grid item>
-                        <Link href="#" variant="body2">
+                        <Link href="/register/" variant="body2">
                             {"Don't have an account? Sign Up"}
                         </Link>
                     </Grid>

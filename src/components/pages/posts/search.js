@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import axiosInstance from "../../axios";
+import axiosInstance from "../../services/axios/axios";
 
 import {makeStyles} from "@material-ui/core/styles";
 import {Card, CardContent, CardMedia, Grid, Typography, Container, Link} from "@material-ui/core";

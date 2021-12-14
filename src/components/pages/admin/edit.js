@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import axiosInstance from '../../axios';
+import axiosInstance from '../../services/axios/axios';
 import {useNavigate, useParams} from 'react-router-dom';
 //MaterialUI
 import Button from '@material-ui/core/Button';
@@ -68,7 +68,7 @@ export default function Create() {
             title: formData.title,
             slug: formData.slug,
             author: 1,
-            excerpt: formData.excerpt,
+            excerpt: formData.description,
             content: formData.content,
         });
         navigate('/admin/', {replace: true})

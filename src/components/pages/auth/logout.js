@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axiosInstance from '../../axios';
+import axiosInstance from '../../services/axios/axios';
 import { useNavigate } from 'react-router-dom';
 
 export default function Logout() {

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import axiosInstance from '../../axios';
+import axiosInstance from '../../services/axios/axios';
 import {useNavigate, useParams} from 'react-router-dom';
 //MaterialUI
 import Container from '@material-ui/core/Container';
