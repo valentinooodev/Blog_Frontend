@@ -34,7 +34,7 @@
   },
   "scripts": {
     "start": "$(npm bin)/react-scripts start",
-    "build": "$(npm bin)/react-scripts build",
+    "build": "$(npm bin)/react-scripts b--max-old-space-size=250 uild",
     "test": "$(npm bin)/react-scripts test",
     "eject": "$(npm bin)/react-scripts eject"
   },
