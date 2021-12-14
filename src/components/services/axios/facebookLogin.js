@@ -4,7 +4,7 @@ import {useNavigate} from 'react-router-dom';
 const facebookLogin = (accesstoken) => {
     console.log(accesstoken);
     axios
-        .post('http://13.229.129.229:8000/auth/convert-token', {
+        .post('http://13.214.199.49:8000/auth/convert-token', {
             token: accesstoken,
             backend: 'facebook',
             grant_type: 'convert_token',
